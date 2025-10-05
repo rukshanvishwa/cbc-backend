@@ -63,7 +63,14 @@ export function loginUser(req,res){
                     res.json(
                         {
                             message: "Login successful",
-                            token: token
+                            token: token,
+                            user: {
+                                email: user.email,
+                                firstName: user.firstName,
+                                lastName: user.lastName,
+                                role: user.role,
+                                isEmailVerified: user.isEmailVerified,
+                            }
                         }
                     )
 
@@ -83,23 +90,23 @@ export function loginUser(req,res){
 }
 
 export function isAdmin(req){
-    if(req.user==null){
-        return false
+    if(req.user == null){
+        return false;
     }
-    if(req.user.role !="admin"){
+    if(req.user.role != "admin"){
         return false
     }
 
-    return true
+    return true;
 }
 
 export function isCustomer(req){
     if(req.user == null){
+        return false;
+    }
+    if(req.user.role != "user"){
         return false
     }
-    if(req.user.role !="user"){
-        return false 
-    }
 
-    return true
+    return true;
 }
